@@ -1,15 +1,18 @@
+#include <sstream>
+#include <iostream>
 #include "Node.h"
-Node::Node() {}
+Node::Node() {
+    Ptr_parent = nullptr;
+}
 
-Node::Node(Airports state, Node parent)
-{
+Node::Node(Airports state, Node parent, Routes actions) {
     this->state = state;
-    Node *ptr_parent = &parent;
-};
+    Ptr_parent = &parent;
+}
 
 Node::Node(Airports state) {
     this->state = state;
-    Node *parent  = NULL;
+    Ptr_parent  = NULL;
 }
 
 Airports Node::getState() {
@@ -20,26 +23,50 @@ string Node::to_string() {
     return state.getAirportId();
 }
 
-list<Airports> Node::Solution_path() {
+void Node::Solution_path() {
     list<Airports> airports;
+    list<string> airportsdata;
     airports.push_back(this->state);
+    string flightpath;
+    stringstream s;
+    s << this->actions.getStops();
+    string stops;
+    s >> stops;
+    int Tpath_cost = 0;
 
-    if(&parent != nullptr)
-    {
-        Node parent_node = *parent;
-        while(&parent_node != nullptr){
-            Airports parent_state = parent_node.getState();
-            airports.push_back(parent_state);
-            parent_node = *parent;
 
-            if(parent_node.parent == NULL){
-                break;
-            };
-            parent_state = parent_node.state;
-        };
+    while (Ptr_parent != nullptr) {
+        flightpath = this->actions.getAirline() + " from " + this->Ptr_parent->getState().getIata() + " to " +
+                     this->state.getIata() + " is " + stops + " stops " + "\r\n";
+        Node parent_node = *Ptr_parent;
+        Airports ParentState = parent_node.getState();
+        airportsdata.push_back(flightpath);
+        parent_node = *Ptr_parent;
+        Tpath_cost += 1;
     }
-    return airports;
+    stringstream num;
+    num << Tpath_cost;
+    string TP_cost;
+    num >> TP_cost;
+    string TotalFlights = "Total flights to take:" + TP_cost;
+    airports.reverse();
+
+    ofstream outfile;
+    outfile.open("Output.txt");
+    if (outfile) {
+        int number = 0;
+        for (auto v: airportsdata) {
+            number = number + 1;
+            outfile << number << ". " << v << "\n";
+        }
+    } else {
+        cout << "An error has occured and data could not be written to the file" << endl;
+    }
+    outfile.close();
 }
+//    return airports;
+
+
 
 
 

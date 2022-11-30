@@ -1,4 +1,5 @@
 #include <iostream>
+#include <list>
 #include <unordered_map>
 using namespace std;
 
@@ -15,6 +16,8 @@ private :
 public:
 
     Airports();
+
+    Airports(string airport_id,string airport_name,string city,string country,string IATA,string ICAO);
 
     string getAirportId();
 
@@ -46,6 +49,8 @@ public:
     void setIcao(string icao);
 
     void Retrieve_Airportdata();
+
+    static unordered_map<string, list<Airports> > getAirport_Map();
 
 };
 

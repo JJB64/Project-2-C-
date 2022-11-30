@@ -8,16 +8,18 @@
 
 using namespace std;
 
-Airports::Airports() {
+Airports::Airports(){
 }
 
+Airports::Airports(string airport_id, string airport_name, string city, string country, string IATA, string ICAO) {
+}
+
+unordered_map<string, list<Airports> > Airport_map;
 void Airports::Retrieve_Airportdata(){
     string airport_id,airport_name, city, country,IATA, ICAO;
     string newLine, data;
-    unordered_map<string, list<Airports> > Airport_map;
     vector<string> airport_data;
     list<Airports> airports;
-
     fstream fin;
     fin.open("airport.csv", ios::in);
     cout << "Stream 1 has been opened \n" << endl;
@@ -108,48 +110,13 @@ void Airports::setIcao(string icao) {
     ICAO = icao;
 }
 
-//void Airports::Retrieve_Airportdata() {
-//        unordered_map<string, list<string> > Airports_map;
-//        string airport_id,airport_name, city, country,IATA, ICAO;
-//        string newLine;
-//        fstream fin;
-//
-//        fin.open("airports.csv", ios:: in);
-//        getline(fin, newLine);
-//        //cout<<"Stream has been opened \n"<<endl;
-//        while(fin.good()) {
-//            getline(fin, airport_id, ',');
-//            getline(fin, airport_name, ',');
-//            getline(fin, city, ',');
-//            getline(fin, country, ',');
-//            getline(fin, IATA, ',');
-//            getline(fin, ICAO, ',');
-//
-//
-//            list<string> routes_data;
-//            routes_data.push_back(airport_id);
-//            routes_data.push_back(airport_name);
-//            routes_data.push_back(city);
-//            routes_data.push_back(country);
-//            routes_data.push_back(IATA);
-//            routes_data.push_back(ICAO);
-//            Airports_map.insert({ city+country, routes_data });
-//        }
-//
-//        fin.close();
-//        for(auto i: Airports_map) {
-//            for(auto m:i.second);
-//            list<string>::iterator it;
-//            cout << i.first << "<<<<<<" << endl;
-//            for (it = i.second.begin(); it != i.second.end(); ++it) {
-//                cout << it->at(0) << endl;
-//            }
-//        }
-//    std::unordered_map<string, list<string>>::iterator it = Routes_map.begin();
-//    while(it != Routes_map.end()){
-//        std::cout<<it->first << " :: " << &it->second<<std::endl;
-//        it++;
-//    }
+unordered_map<string, list<Airports> > Airports::getAirport_Map() {
+    return Airport_map;
+}
+
+
+
+
 
 
 

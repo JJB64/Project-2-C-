@@ -4,8 +4,8 @@
 #include <sstream>
 #include <string>
 #include "cmake-build-debug/Routes.h"
-#include "cmake-build-debug/Airports.h"
 #include "cmake-build-debug/Airlines.h"
+#include "cmake-build-debug/Node.h"
 
 using namespace std;
 
@@ -50,13 +50,23 @@ int main() {
     Ecity=etemp[0] ;
     Ecountry=etemp[1] ;
     string Sdata=Scity+Scountry;
+    cout<<Sdata<<endl;
 
 
     return 0;
 }
 
-//list<Airports> Generate_airports(string Sdata){
-//};
+//Check this
+list<Node> Generate_airports(string Sdata){
+    list<Node> Potential_Airports;
+    list<Airports> Airdata = Airports::getAirport_Map()[Sdata];
+    for(Airports data: Airdata){
+        Node node(data);
+        Potential_Airports.push_back(node);
+    }
+
+    return Potential_Airports;
+}
 
 void bfs(string Scity, string Scountry, string Ecity, string Ecountry){
 };

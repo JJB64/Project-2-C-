@@ -14,14 +14,14 @@ class Node{
 
 private :
     Airports state;
-    Node *parent = nullptr;
+    Node* Ptr_parent;
     Routes actions;
     int pathcost;
 
 
 
 public:
-    Node(Airports state, Node parent);
+    Node(Airports state, Node parent, Routes actions);
 
     Node(Airports state);
 
@@ -29,7 +29,7 @@ public:
 
     Airports getState();
 
-    list <Airports> Solution_path();
+    void Solution_path();
 
     string to_string();
 
